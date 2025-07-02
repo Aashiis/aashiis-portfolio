@@ -1,0 +1,56 @@
+/* Gradient Text for the Hero Title */
+.heroTextGradient {
+  background: linear-gradient(to right, #ffffff, #67e8f9); /* White to Cyan-300 */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+/* Glowing Button Effect */
+.glowingBtn {
+  position: relative;
+  color: white;
+  background: var(--accent-color-rgb, 34 211 238); /* Fallback */
+  background-color: rgb(var(--accent-color));
+  transition: background-color 0.3s ease;
+}
+
+.glowingBtn:hover {
+    background-color: rgb(8 145 178); /* Darker Cyan */
+}
+
+/* The glowing effect using a pseudo-element */
+.glowingBtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 0.5rem; /* Matches button's rounded-lg */
+  border: 2px solid transparent;
+  background: linear-gradient(45deg, #06b6d4, #8b5cf6, #ec4899) border-box; /* Cyan, Purple, Pink */
+  -webkit-mask:
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  z-index: -1;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.glowingBtn:hover::before {
+  opacity: 1;
+  animation: spin 2.5s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

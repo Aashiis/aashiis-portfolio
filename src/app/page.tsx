@@ -1,103 +1,151 @@
-import Image from "next/image";
+"use client"; // Required for animations and hooks
+
+import Link from 'next/link';
+import { motion, Variants } from 'framer-motion';
+import { PROJECTS } from './data/projects';
+import { SKILLS } from './data/skills';
+import ProjectCard from '../components/ProjectCard';
+import SkillBadge from '../components/SkillBadge';
+import BackgroundParticles from '../components/BackgroundParticles';
+import styles from './styles/HomePage.module.css'; // Import our new CSS module
+
+// Animation Variants
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+    },
+  },
+};
+
+const sectionVariants: Variants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { 
+        opacity: 1, 
+        y: 0, 
+        transition: { 
+            duration: 0.6, 
+            ease: "easeOut" // Corrected: string, not string[]
+        } 
+    }
+}
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const featuredProjects = PROJECTS.slice(0, 3);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  return (
+    <div className="relative overflow-hidden">
+      <BackgroundParticles />
+
+      <div className="relative z-10">
+        {/* Hero Section */}
+        <section className="text-center py-24 min-h-[70vh] flex flex-col justify-center items-center">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+            <motion.h1 
+              className={`text-5xl md:text-7xl font-bold mb-4 ${styles.heroTextGradient}`}
+              variants={itemVariants}
+            >
+              Prakash BK (Aashis)
+            </motion.h1>
+            <motion.p
+              className="text-xl md:text-2xl text-cyan-400 font-medium mb-8"
+              variants={itemVariants}
+            >
+              Full-Stack Developer & Mobile App Engineer
+            </motion.p>
+            <motion.p
+              className="max-w-3xl mx-auto text-slate-300 mb-10 text-balance"
+              variants={itemVariants}
+            >
+              Highly motivated and self-driven developer with 3+ years of experience building scalable web and mobile applications. Passionate about clean architecture, great UI/UX, and impactful technology.
+            </motion.p>
+            <motion.div className="flex justify-center gap-4" variants={itemVariants}>
+              <Link href="/projects" className={`font-bold py-3 px-6 rounded-lg transition-all ${styles.glowingBtn}`}>
+                  View My Work
+              </Link>
+              <Link href="/contact" className="bg-slate-800 hover:bg-slate-700 text-slate-100 font-bold py-3 px-6 rounded-lg transition-all">
+                Get In Touch
+              </Link>
+            </motion.div>
+          </motion.div>
+        </section>
+
+        {/* Skills Section */}
+        <motion.section 
+            id="skills" 
+            className="py-20"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={sectionVariants}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          <h2 className="text-3xl font-bold text-center text-white mb-12">My Technical Skills</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {Object.entries(SKILLS).map(([category, skills], index) => (
+              <motion.div 
+                key={category} 
+                className="bg-slate-900/50 backdrop-blur-sm p-6 rounded-lg border border-slate-800"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                variants={{ visible: { opacity: 1, y: 0, transition: { delay: index * 0.1 }}}}
+              >
+                <h3 className="text-xl font-semibold text-cyan-400 mb-4">{category}</h3>
+                <div className="flex flex-wrap gap-2">
+                  {skills.map(skill => <SkillBadge key={skill.name} name={skill.name} />)}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
+
+        {/* Featured Projects Section */}
+        <motion.section 
+            id="projects" 
+            className="py-20"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={sectionVariants}
         >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          <h2 className="text-3xl font-bold text-center text-white mb-12">Featured Projects</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {featuredProjects.map((project, index) => (
+               <motion.div
+                key={project.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                variants={{ visible: { opacity: 1, y: 0, transition: { delay: index * 0.15 }}}}
+              >
+                <ProjectCard project={project} />
+              </motion.div>
+            ))}
+          </div>
+          <div className="text-center mt-12">
+            <Link href="/projects" className="text-cyan-400 hover:underline text-lg font-semibold">
+              View All Projects →
+            </Link>
+          </div>
+        </motion.section>
+      </div>
     </div>
   );
 }

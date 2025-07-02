@@ -2,8 +2,8 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
-import { type Container, type ISourceOptions } from "@tsparticles/engine";
-import { loadSlim } from "@tsparticles/slim"; 
+import { type ISourceOptions } from "@tsparticles/engine";
+import { loadSlim } from "@tsparticles/slim";
 
 const BackgroundParticles = () => {
   const [init, setInit] = useState(false);
@@ -16,9 +16,7 @@ const BackgroundParticles = () => {
     });
   }, []);
 
-  const particlesLoaded = async (container?: Container): Promise<void> => {
-    // console.log("particles.js loaded", container);
-  };
+
 
   const options: ISourceOptions = useMemo(
     () => ({
@@ -39,12 +37,12 @@ const BackgroundParticles = () => {
           },
         },
         modes: {
-            grab: {
-                distance: 150,
-                links: {
-                  opacity: 0.5,
-                }
-            },
+          grab: {
+            distance: 150,
+            links: {
+              opacity: 0.5,
+            }
+          },
         },
       },
       particles: {
@@ -93,7 +91,6 @@ const BackgroundParticles = () => {
     return (
       <Particles
         id="tsparticles"
-        particlesLoaded={particlesLoaded}
         options={options}
         className="absolute inset-0 z-0"
       />

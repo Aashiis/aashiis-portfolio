@@ -14,6 +14,12 @@ export const PROJECTS: Project[] = [
     liveUrl: "https://play.google.com/store/apps/details?id=com.nepaliyogi.brihatpatro",
   },
   {
+    title: "Note Library - Flutter App",
+    description: "A growing notes library app which provides the collection of notes video courses and tests for students to make easy to find study materials for their exams. Features include user authentication, notes management, and Firebase backend. Built for a client.",
+    tags: ["Flutter", "Django", "Cpanel", "Firebase", "Play Store", "Notifications"],
+    liveUrl: "https://play.google.com/store/apps/details?id=com.notelibraryapp",
+  },
+  {
     title: "Full-Stack E-Commerce Website",
     description: "A full-featured web shop with user login, product browsing, cart, and payment simulation. Includes an admin dashboard for product management and order tracking.",
     tags: ["Next.js", "Django", "DRF", "PostgreSQL", "Tailwind CSS"],
